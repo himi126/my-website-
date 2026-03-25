@@ -4,7 +4,7 @@ import { Card, CardHeader } from './Card';
 import { Button } from './Button';
 import { Modal } from './Modal';
 import { Input, Textarea, Select } from './Input';
-import { storage, generateId, formatDateTime } from './appStorage';
+import { appStorage, generateId, formatDateTime } from './appStorage';
 import type { Inspiration } from './index.ts';
 
 const tagColors: Record<string, string> = {
@@ -32,7 +32,7 @@ export const InspirationModule: React.FC = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    storage.set('inspirations', inspirations);
+    appStorage.set('inspirations', inspirations);
   }, [inspirations]);
 
   const resetForm = () => {
