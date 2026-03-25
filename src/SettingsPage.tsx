@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Settings, Download, Upload, Moon, Sun, GripVertical, Eye, EyeOff, Trash2 } from 'lucide-react';
-import { Card, CardHeader } from './UI/Card';
-import { Button } from './UI/Button';
+import { Card, CardHeader } from './Card';
+import { Button } from './Button';
 import { useApp } from './AppContext';
 import { storage } from './appStorage';
-import type { ModuleOrder } from '../types';
+import type { ModuleOrder } from './index.ts';
 
 export const SettingsPage: React.FC = () => {
   const { settings, toggleMinimalMode, updateModuleOrder } = useApp();
