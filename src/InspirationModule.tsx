@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Lightbulb, Plus, Trash2, Search, Tag, Image, FileText, Mic, X } from 'lucide-react';
-import { Card, CardHeader } from '../UI/Card';
-import { Button } from '../UI/Button';
-import { Modal } from '../UI/Modal';
-import { Input, Textarea, Select } from '../UI/Input';
-import { storage, generateId, formatDateTime } from '../../lib/storage';
-import type { Inspiration } from '../../types';
+import { Card, CardHeader } from './Card';
+import { Button } from './Button';
+import { Modal } from './Modal';
+import { Input, Textarea, Select } from './Input';
+import { storage, generateId, formatDateTime } from './appStorage';
+import type { Inspiration } from './index.ts';
 
 const tagColors: Record<string, string> = {
   '设计灵感': 'bg-purple-100 text-purple-700',
