@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Users, Plus, Trash2, Edit, Search, Bell, Phone, Mail, Briefcase, Calendar, Link2 } from 'lucide-react';
-import { Card, CardHeader } from '../UI/Card';
-import { Button } from '../UI/Button';
-import { Modal } from '../UI/Modal';
-import { Input, Textarea, Select } from '../UI/Input';
-import { storage, generateId, formatDate } from '../../lib/storage';
-import type { Contact, Task } from '../../types';
+import { Card, CardHeader } from './Card';
+import { Button } from './Button';
+import { Modal } from './Modal';
+import { Input, Textarea, Select } from './Input';
+import { storage, generateId, formatDate } from './appStorage';
+import type { Contact, Task } from './index.ts';
 
 export const ContactModule: React.FC = () => {
   const [contacts, setContacts] = useState<Contact[]>(() => storage.get('contacts', []));
