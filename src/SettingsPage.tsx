@@ -1,185 +1,139 @@
-import React, { useState } from 'react';
-import { Settings, Download, Upload, Moon, Sun, GripVertical, Eye, EyeOff, Trash2 } from 'lucide-react';
-import { Card, CardHeader } from './Card';
+import React from 'react';
+import { Save, RefreshCw, Download, Upload, Trash2, Layout } from 'lucide-react';
+import { Card } from './Card';
 import { Button } from './Button';
 import { useApp } from './AppContext';
 import { appStorage } from './appStorage';
-import type { ModuleOrder } from './index.ts';
 
 export const SettingsPage: React.FC = () => {
-  const { settings, toggleMinimalMode, updateModuleOrder } = useApp();
-  const [importStatus, setImportStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const { settings, setSettings } = useApp();
 
-  // 导出数据
+  // 1. 安全获取配置，如果 settings 为空则提供默认值
+  const safeSettings = settings || { minimalMode: false, moduleOrder: [] };
+  const moduleOrder = Array.isArray(safeSettings.moduleOrder) ? safeSettings.moduleOrder : [];
+
+  const handleToggleMinimal = () => {
+    setSettings({ ...safeSettings, minimalMode: !safeSettings.minimalMode });
+  };
+
   const handleExport = () => {
     const data = appStorage.exportAll();
     const blob = new Blob([data], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `personal-toolkit-backup-${new Date().toISOString().split('T')[0]}.json`;
+    a.download = `my-tools-backup-${new Date().toISOString().split('T')[0]}.json`;
     a.click();
-    URL.revokeObjectURL(url);
   };
 
-  // 导入数据
-  const handleImport = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
-    const reader = new FileReader();
-    reader.onload = (event) => {
-      const content = event.target?.result as string;
-      const success = storage.importData(content);
-      setImportStatus(success ? 'success' : 'error');
-      if (success) {
-        setTimeout(() => window.location.reload(), 1000);
-      }
-    };
-    reader.readAsText(file);
-  };
-
-  // 清除所有数据
   const handleClearData = () => {
-    if (window.confirm('确定要清除所有数据吗？此操作不可恢复！')) {
+    if (window.confirm('确定要清空所有数据吗？此操作不可撤销！')) {
       localStorage.clear();
-      window.location.reload();
+      window.location.href = '/';
     }
   };
 
-  // 模块排序
-  const handleMoveModule = (index: number, direction: 'up' | 'down') => {
-    const newOrder = [...settings.moduleOrder];
-    const targetIndex = direction === 'up' ? index - 1 : index + 1;
-    if (targetIndex < 0 || targetIndex >= newOrder.length) return;
-
-    const temp = newOrder[index].order;
-    newOrder[index].order = newOrder[targetIndex].order;
-    newOrder[targetIndex].order = temp;
-
-    updateModuleOrder(newOrder.sort((a, b) => a.order - b.order));
-  };
-
-  // 切换模块可见性
-  const handleToggleVisibility = (id: string) => {
-    const newOrder = settings.moduleOrder.map(m =>
-      m.id === id ? { ...m, visible: !m.visible } : m
-    );
-    updateModuleOrder(newOrder);
-  };
+  // 定义所有可用模块，用于排序管理
+  const allModules = [
+    { id: 'recipe', name: '私人定制食谱' },
+    { id: 'news', name: '新闻聚合' },
+    { id: 'health', name: '健康追踪' },
+    { id: 'inspiration', name: '灵感创意库' },
+    { id: 'tasks', name: '工作清单' },
+    { id: 'review', name: '工作复盘' },
+    { id: 'contacts', name: '人脉管理' },
+  ];
 
   return (
-    <div className="max-w-2xl mx-auto space-y-6">
-      <h1 className="text-2xl font-bold text-primary flex items-center gap-2">
-        <Settings className="text-accent" />
-        个人设置
-      </h1>
+    <div className="max-w-4xl mx-auto space-y-6 p-4">
+      <h2 className="text-2xl font-bold text-primary flex items-center gap-2">
+        <Layout className="text-accent" /> 个人设置
+      </h2>
 
-      {/* 显示模式 */}
-      <Card>
-        <CardHeader title="显示模式" subtitle="切换页面显示风格" />
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            {settings.minimalMode ? <Moon size={24} className="text-primary" /> : <Sun size={24} className="text-accent" />}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* 常规设置 */}
+        <Card title="常规设置" className="p-4">
+          <div className="flex items-center justify-between py-2">
             <div>
-              <p className="font-medium">{settings.minimalMode ? '极简模式' : '标准模式'}</p>
-              <p className="text-sm text-gray-500">
-                {settings.minimalMode ? '隐藏装饰元素，仅保留核心功能' : '完整显示所有界面元素'}
-              </p>
+              <p className="font-medium">极简模式</p>
+              <p className="text-xs text-gray-500">隐藏首页装饰元素，仅保留核心模块</p>
             </div>
+            <button
+              onClick={handleToggleMinimal}
+              className={`w-12 h-6 rounded-full transition-colors ${safeSettings.minimalMode ? 'bg-primary' : 'bg-gray-300'}`}
+            >
+              <div className={`w-4 h-4 bg-white rounded-full transition-transform mx-1 ${safeSettings.minimalMode ? 'translate-x-6' : ''}`} />
+            </button>
           </div>
-          <Button variant={settings.minimalMode ? 'secondary' : 'outline'} onClick={toggleMinimalMode}>
-            {settings.minimalMode ? '关闭极简模式' : '开启极简模式'}
-          </Button>
-        </div>
-      </Card>
+        </Card>
 
-      {/* 模块排序 */}
-      <Card>
-        <CardHeader title="模块排序" subtitle="拖动调整首页模块显示顺序，点击眼睛图标隐藏/显示模块" />
-        <div className="space-y-2">
-          {settings.moduleOrder
-            .sort((a, b) => a.order - b.order)
-            .map((module, index) => (
-              <div
-                key={module.id}
-                className={`flex items-center gap-3 p-3 rounded-lg border ${
-                  module.visible ? 'bg-white border-gray-200' : 'bg-gray-50 border-gray-100'
-                }`}
-              >
-                <GripVertical size={18} className="text-gray-400" />
-                <span className={`flex-1 ${module.visible ? '' : 'text-gray-400'}`}>{module.name}</span>
-                <div className="flex items-center gap-1">
-                  <button
-                    onClick={() => handleMoveModule(index, 'up')}
-                    disabled={index === 0}
-                    className="p-1 text-gray-400 hover:text-primary disabled:opacity-30"
-                  >
-                    ↑
-                  </button>
-                  <button
-                    onClick={() => handleMoveModule(index, 'down')}
-                    disabled={index === settings.moduleOrder.length - 1}
-                    className="p-1 text-gray-400 hover:text-primary disabled:opacity-30"
-                  >
-                    ↓
-                  </button>
-                  <button
-                    onClick={() => handleToggleVisibility(module.id)}
-                    className={`p-1 ${module.visible ? 'text-primary' : 'text-gray-400'}`}
-                  >
-                    {module.visible ? <Eye size={18} /> : <EyeOff size={18} />}
-                  </button>
-                </div>
-              </div>
-            ))}
-        </div>
-      </Card>
-
-      {/* 数据管理 */}
-      <Card>
-        <CardHeader title="数据管理" subtitle="导出备份或导入已有数据" />
-        <div className="space-y-4">
-          <div className="flex flex-wrap gap-3">
-            <Button variant="outline" onClick={handleExport}>
-              <Download size={16} className="mr-1" /> 导出数据备份
-            </Button>
-            <label>
-              <Button variant="outline" as="span">
-                <Upload size={16} className="mr-1" /> 导入数据
+        {/* 数据管理 */}
+        <Card title="数据管理" className="p-4">
+          <div className="space-y-4">
+            <div className="flex gap-2">
+              <Button onClick={handleExport} className="flex-1 text-sm py-2">
+                <Download size={14} className="mr-1" /> 导出备份
+              </Button>
+              <Button variant="outline" onClick={() => document.getElementById('import-input')?.click()} className="flex-1 text-sm py-2">
+                <Upload size={14} className="mr-1" /> 导入数据
               </Button>
               <input
+                id="import-input"
                 type="file"
-                accept=".json"
-                onChange={handleImport}
                 className="hidden"
+                accept=".json"
+                onChange={(e) => {
+                  const file = e.target.files?.[0];
+                  if (file) {
+                    const reader = new FileReader();
+                    reader.onload = (event) => {
+                      const content = event.target?.result as string;
+                      if (appStorage.importData(content)) {
+                        alert('导入成功！页面即将刷新');
+                        window.location.reload();
+                      }
+                    };
+                    reader.readAsText(file);
+                  }
+                }}
               />
-            </label>
+            </div>
+            <Button variant="danger" onClick={handleClearData} className="w-full text-sm py-2 bg-red-50 text-red-600 hover:bg-red-100 border-red-200">
+              <Trash2 size={14} className="mr-1" /> 清空本地所有数据
+            </Button>
           </div>
-          {importStatus === 'success' && (
-            <p className="text-sm text-green-500">数据导入成功，正在刷新页面...</p>
-          )}
-          {importStatus === 'error' && (
-            <p className="text-sm text-red-500">数据导入失败，请检查文件格式</p>
-          )}
-        </div>
-      </Card>
+        </Card>
+      </div>
 
-      {/* 危险操作 */}
-      <Card className="border-red-200">
-        <CardHeader title="危险操作" subtitle="以下操作不可恢复，请谨慎操作" />
-        <Button variant="danger" onClick={handleClearData}>
-          <Trash2 size={16} className="mr-1" /> 清除所有数据
-        </Button>
-      </Card>
+      {/* 模块可见性管理 */}
+      <Card title="模块显示管理" className="p-4">
+        <div className="space-y-2">
+          {allModules.map(mod => {
+            // 安全查找配置
+            const config = moduleOrder.find(o => o && o.id === mod.id);
+            const isVisible = config ? config.visible !== false : true;
 
-      {/* 关于 */}
-      <Card>
-        <CardHeader title="关于" />
-        <div className="text-sm text-gray-500 space-y-1">
-          <p>我的个人工具站 - 生活与工作一体化管理</p>
-          <p>版本：1.0.0</p>
-          <p>所有数据存储在本地浏览器中，无需联网即可使用</p>
+            return (
+              <div key={mod.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                <span className="font-medium">{mod.name}</span>
+                <button
+                  onClick={() => {
+                    let newOrder = [...moduleOrder];
+                    const idx = newOrder.findIndex(o => o && o.id === mod.id);
+                    if (idx >= 0) {
+                      newOrder[idx] = { ...newOrder[idx], visible: !isVisible };
+                    } else {
+                      newOrder.push({ id: mod.id, order: 99, visible: !isVisible });
+                    }
+                    setSettings({ ...safeSettings, moduleOrder: newOrder });
+                  }}
+                  className={`px-3 py-1 rounded text-xs font-bold ${isVisible ? 'bg-green-100 text-green-700' : 'bg-gray-200 text-gray-500'}`}
+                >
+                  {isVisible ? '显示中' : '已隐藏'}
+                </button>
+              </div>
+            );
+          })}
         </div>
       </Card>
     </div>
