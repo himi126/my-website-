@@ -74,8 +74,8 @@ export const HealthModule: React.FC = () => {
     const safeRecords = Array.isArray(records) ? records : [];
     const now = new Date();
     const cutoff = new Date();
-  if (viewRange === 'week') {  // ⬅️ 检查这里是否有引号闭合和括号
-      cutoff.setDate(now.getDate() - 7);
-    } else {
-      cutoff.setMonth(now.getMonth() - 1);
-    }
+  if (viewRange === 'week') {
+  cutoff.setDate(now.getDate() - 7);
+} else {
+  cutoff.setMonth(now.getMonth() - 1);
+}
