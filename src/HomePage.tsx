@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ChefHat, Newspaper, CheckSquare, FileText, Activity, Lightbulb, Users, ArrowRight, Calendar, TrendingUp } from 'lucide-react';
-import { Card } from './UI/Card';
+import { Card } from './Card';
 import { useApp } from './AppContext';
 import { appStorage, formatDate } from './appStorage';
 import { getCurrentSolarTerm } from './solarTerms';
-import type { Recipe, NewsItem, Task, HealthRecord, Review } from './types';
+import type { Recipe, NewsItem, Task, HealthRecord, Review } from './index.ts';
 
 export const HomePage: React.FC = () => {
   const { settings } = useApp();
