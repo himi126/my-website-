@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Settings, Download, Upload, Moon, Sun, GripVertical, Eye, EyeOff, Trash2 } from 'lucide-react';
-import { Card, CardHeader } from '../components/UI/Card';
-import { Button } from '../components/UI/Button';
-import { useApp } from '../context/AppContext';
+import { Card, CardHeader } from './UI/Card';
+import { Button } from './UI/Button';
+import { useApp } from './AppContext';
 import { storage } from './appStorage';
 import type { ModuleOrder } from '../types';
 
