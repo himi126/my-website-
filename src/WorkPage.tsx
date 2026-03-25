@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { CheckSquare, FileText, Users } from 'lucide-react';
-import { TaskModule } from '../components/Modules/TaskModule';
-import { ReviewModule } from '../components/Modules/ReviewModule';
-import { ContactModule } from '../components/Modules/ContactModule';
-import { useApp } from '../context/AppContext';
+import { TaskModule } from './TaskModule';
+import { ReviewModule } from './ReviewModule';
+import { ContactModule } from './ContactModule';
+import { useApp } from './AppContext';
 
 type WorkTab = 'tasks' | 'review' | 'contacts';
 
