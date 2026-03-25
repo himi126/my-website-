@@ -1,4 +1,4 @@
-/* 引入 Google Fonts 上的圆体和可爱字体作为备选 */
+/* index.css */
 @import url('https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&family=Noto+Sans+SC:wght@400;500;700&display=swap');
 
 @tailwind base;
@@ -6,25 +6,19 @@
 @tailwind utilities;
 
 :root {
-  --primary-soft: #f3f0ff;
-  --primary-main: #9775fa;
+  --primary-purple: #9775fa;
+  --bg-soft-purple: #f8f6ff;
 }
 
-/* 全局默认字体：圆黑体风格 */
 body {
+  /* 全局圆黑体风格 */
   font-family: 'ui-rounded', 'Hiragino Maru Gothic ProN', 'Quicksand', 'Noto Sans SC', sans-serif;
-  background: linear-gradient(135deg, #fdfbff 0%, #f3f0ff 100%);
-  background-attachment: fixed;
+  background-color: var(--bg-soft-purple);
   color: #495057;
 }
 
-/* 专属：娃娃体 / 快乐体样式 */
-.font-baby {
-  /* 优先使用系统的可爱字体，备选 Google 的 ZCOOL KuaiLe */
+/* 专门给寄语准备的娃娃体类 */
+.font-wawa {
+  /* 优先使用系统娃娃体，备选快乐体 */
   font-family: 'Chalkboard SE', 'Comic Sans MS', 'ZCOOL KuaiLe', cursive;
-}
-
-/* 之前定义的卡片效果保持不变 */
-.glass-card {
-  @apply bg-white/80 backdrop-blur-md border border-white/50 rounded-[2rem] shadow-sm transition-all duration-300;
 }
