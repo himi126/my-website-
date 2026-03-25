@@ -3,7 +3,7 @@ import { Settings, Download, Upload, Moon, Sun, GripVertical, Eye, EyeOff, Trash
 import { Card, CardHeader } from '../components/UI/Card';
 import { Button } from '../components/UI/Button';
 import { useApp } from '../context/AppContext';
-import { storage } from '../lib/storage';
+import { storage } from './appStorage';
 import type { ModuleOrder } from '../types';
 
 export const SettingsPage: React.FC = () => {
