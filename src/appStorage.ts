@@ -1,5 +1,5 @@
 // localStorage 工具函数
-export const storage = {
+export const appStorage = {
   get: <T>(key: string, defaultValue: T): T => {
     try {
       const item = localStorage.getItem(key);
