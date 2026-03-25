@@ -4,7 +4,7 @@ import { Card, CardHeader } from './Card';
 import { Button } from './Button';
 import { Modal } from './Modal';
 import { Input, Textarea, Select } from './Input';
-import { storage, generateId, formatDate, formatDateTime } from './appStorage';
+import { appStorage, generateId, formatDate, formatDateTime } from './appStorage';
 import type { Review } from './index.ts';
 
 const reviewTypeConfig = {
