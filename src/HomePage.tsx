@@ -30,8 +30,28 @@ export const HomePage: React.FC = () => {
     const reviewDate = new Date(r.date);
     const weekAgo = new Date();
     weekAgo.setDate(weekAgo.getDate() - 7);
-    return reviewDate >= weekAgo;
-  }) : [];
+   // 在 HomePage.tsx 的 return 部分进行如下替换：
+
+  return (
+    <div className="p-6 space-y-8">
+      <header className="text-center animate-in fade-in duration-700">
+        {/* 这里就是新增的欢迎语 */}
+        <p className="text-accent font-medium mb-2 tracking-widest uppercase text-sm">
+          Welcome to himi's cabin
+        </p>
+        
+        <h1 className="text-4xl font-bold text-primary tracking-tight">
+          欢迎来到 himi 的小屋
+        </h1>
+        
+        {!settings?.minimalMode && (
+          <p className="text-gray-400 mt-3 text-lg font-light">
+            生活与工作一体化管理 · 专注实用
+          </p>
+        )}
+      </header>
+
+      {/* 剩下的内容保持不变... */}
 
   // 3. 模块卡片定义：修正了这里的 storage -> appStorage 错误
   const moduleCards = [
