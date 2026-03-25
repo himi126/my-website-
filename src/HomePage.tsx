@@ -44,18 +44,36 @@ export const HomePage: React.FC = () => {
   return (
     <div className="p-6 space-y-10">
       {/* --- 重点：欢迎语区域 --- */}
-      <header className="text-center py-10 space-y-4">
-        <div className="inline-block px-4 py-1.5 bg-primary/10 rounded-full">
-          <p className="text-primary font-medium tracking-widest text-sm uppercase">
+   // 在 HomePage.tsx 的 return 块中替换 header 部分：
+
+      {/* --- 顶部欢迎与每日寄语 --- */}
+      <header className="text-center py-12 space-y-6 animate-in fade-in slide-in-from-top-4 duration-1000">
+        <div className="inline-block px-4 py-1.5 bg-purple-100/50 rounded-full">
+          <p className="text-purple-400 font-medium tracking-[0.2em] text-xs uppercase">
             ✨ Welcome to himi's cabin
           </p>
         </div>
-        <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 tracking-tight">
-          欢迎来到 <span className="text-primary">himi 的小屋</span>
-        </h1>
-        <p className="text-gray-500 text-lg max-w-2xl mx-auto">
-          生活与工作一体化管理 · 这里的每一处细节都为你量身打造
-        </p>
+        
+        <div className="space-y-2">
+          <h1 className="text-4xl md:text-5xl font-extrabold text-gray-800 tracking-tight">
+            欢迎来到 <span className="text-purple-400">himi 的小屋</span>
+          </h1>
+          
+          {/* 这里是新增的暖心寄语 */}
+          <div className="pt-2">
+            <p className="inline-block relative text-lg text-gray-500 font-medium">
+              <span className="relative z-10">每天都要好好吃饭，对自己笑一笑哦 🌸</span>
+              {/* 这是一个很有设计感的文字底衬（浅紫色涂鸦感） */}
+              <span className="absolute bottom-1 left-0 w-full h-2 bg-purple-100/60 -z-0 rounded-full"></span>
+            </p>
+          </div>
+        </div>
+
+        {!settings?.minimalMode && (
+          <p className="text-gray-400 text-sm font-light tracking-widest">
+            生活与工作一体化管理 · 专注每一天的确幸
+          </p>
+        )}
       </header>
       {/* ----------------------- */}
 
