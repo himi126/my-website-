@@ -1,10 +1,10 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { AppProvider } from './context/AppContext';
-import { Layout } from './components/Layout/Layout';
-import { HomePage } from './pages/HomePage';
-import { LifePage } from './pages/LifePage';
-import { WorkPage } from './pages/WorkPage';
-import { SettingsPage } from './pages/SettingsPage';
+import { AppProvider } from './AppContext';
+import { Layout } from './Layout';
+import { HomePage } from './HomePage';
+import { LifePage } from './LifePage';
+import { WorkPage } from './WorkPage';
+import { SettingsPage } from './SettingsPage';
 import './index.css';
 
 function App() {
