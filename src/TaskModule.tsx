@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { CheckSquare, Plus, Trash2, Edit, Clock, AlertTriangle, ChevronDown, ChevronUp, Calendar } from 'lucide-react';
-import { Card, CardHeader } from '../UI/Card';
-import { Button } from '../UI/Button';
-import { Modal } from '../UI/Modal';
-import { Input, Textarea, Select } from '../UI/Input';
-import { storage, generateId, formatDate } from '../../lib/storage';
-import type { Task } from '../../types';
+import { Card, CardHeader } from './Card';
+import { Button } from './Button';
+import { Modal } from './Modal';
+import { Input, Textarea, Select } from './Input';
+import { storage, generateId, formatDate } from './appStorage';
+import type { Task } from './index.ts';
 
 const priorityConfig = {
   high: { label: '高优先级', color: 'bg-accent text-black', border: 'border-l-4 border-accent' },
