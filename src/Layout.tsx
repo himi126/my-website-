@@ -5,6 +5,7 @@ import { useApp } from './AppContext';
 
 export const Layout: React.FC = () => {
   const { settings } = useApp();
+  
   return (
     <div className={`min-h-screen bg-gray-50 ${settings.minimalMode ? 'minimal-mode' : ''}`}>
       <Navbar />
@@ -13,4 +14,13 @@ export const Layout: React.FC = () => {
       </main>
       {!settings.minimalMode && (
         <footer className="bg-white border-t py-4 mt-auto">
-          <div className="max-w-7xl mx-auto px-4
+          <div className="max-w-7xl mx-auto px-4">
+            <p className="text-center text-gray-500 text-sm">
+              © {new Date().getFullYear()} My Website
+            </p>
+          </div>
+        </footer>
+      )}
+    </div>
+  );
+};
