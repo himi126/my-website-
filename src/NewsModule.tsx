@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Newspaper, Star, Check, RefreshCw, Filter, ExternalLink, Bookmark, Search } from 'lucide-react';
-import { Card, CardHeader } from '../UI/Card';
+import { Card, CardHeader } from './Card';
 import { Button } from './Button';
 import { Input } from './Input';
 import { storage, generateId } from './appStorage';
