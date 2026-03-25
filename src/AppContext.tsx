@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { storage } from './storage';
+import { storage } from './appStorage';
 import type { AppSettings, ModuleOrder } from './types';
 
 interface AppContextType {
