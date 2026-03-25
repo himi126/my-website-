@@ -4,7 +4,7 @@ import { Card, CardHeader } from './Card';
 import { Button } from './Button';
 import { Modal } from './Modal';
 import { Input, Textarea, Select } from './Input';
-import { storage, generateId, formatDate } from './appStorage';
+import { appStorage, generateId, formatDate } from './appStorage';
 import type { Task } from './index.ts';
 
 const priorityConfig = {
