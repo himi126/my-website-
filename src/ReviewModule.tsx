@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { FileText, Plus, Trash2, Download, Calendar, ChevronRight } from 'lucide-react';
-import { Card, CardHeader } from '../UI/Card';
-import { Button } from '../UI/Button';
-import { Modal } from '../UI/Modal';
-import { Input, Textarea, Select } from '../UI/Input';
-import { storage, generateId, formatDate, formatDateTime } from '../../lib/storage';
-import type { Review } from '../../types';
+import { Card, CardHeader } from './Card';
+import { Button } from './Button';
+import { Modal } from './Modal';
+import { Input, Textarea, Select } from './Input';
+import { storage, generateId, formatDate, formatDateTime } from './appStorage';
+import type { Review } from './index.ts';
 
 const reviewTypeConfig = {
   daily: { label: '日复盘', color: 'bg-green-100 text-green-700' },
