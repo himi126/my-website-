@@ -119,7 +119,7 @@ export const HomePage: React.FC = () => {
   return (
     <div className="space-y-8 p-4">
       <div className={`text-center py-8 ${settings?.minimalMode ? 'py-4' : ''}`}>
-        <h1 className="text-3xl font-bold text-primary">我的个人工具站</h1>
+        <h1 className="text-3xl font-bold text-primary">himi的小屋🛖</h1>
         {!settings?.minimalMode && (
           <p className="text-gray-500 mt-2">生活与工作一体化管理 · 专注实用</p>
         )}
