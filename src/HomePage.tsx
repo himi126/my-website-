@@ -12,11 +12,11 @@ export const HomePage: React.FC = () => {
   const currentSolarTerm = getCurrentSolarTerm();
 
   // 加载各模块数据
-  const recipes = storage.get<Recipe[]>('recipes', []);
-  const news = storage.get<NewsItem[]>('news', []);
-  const tasks = storage.get<Task[]>('tasks', []);
-  const healthRecords = storage.get<HealthRecord[]>('health-records', []);
-  const reviews = storage.get<Review[]>('reviews', []);
+  const recipes = appStorage.get<Recipe[]>('recipes', []);
+  const news = appStorage.get<NewsItem[]>('news', []);
+  const tasks = appStorage.get<Task[]>('tasks', []);
+  const healthRecords = appStorage.get<HealthRecord[]>('health-records', []);
+  const reviews = appStorage.get<Review[]>('reviews', []);
 
   // 今日食谱
   const todayRecipe = recipes.find(r => formatDate(r.createdAt) === formatDate(new Date()));
