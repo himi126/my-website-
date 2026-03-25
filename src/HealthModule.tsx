@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Activity, Plus, TrendingUp, TrendingDown, AlertTriangle, Droplets, Moon, Footprints } from 'lucide-react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
-import { Card, CardHeader } from '../UI/Card';
+import { Card, CardHeader } from './Card';
 import { Button } from './Button';
 import { Modal } from './Modal';
 import { Input } from './Input';
