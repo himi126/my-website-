@@ -79,3 +79,7 @@ export const formatDateTime = (date: Date | string): string => {
 if (typeof window !== 'undefined') {
   (window as any).storage = appStorage;
 }
+// @ts-ignore
+if (typeof window !== 'undefined') {
+  (window as any).storage = appStorage;
+}
