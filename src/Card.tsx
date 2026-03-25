@@ -1,39 +1,22 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
 
 interface CardProps {
-  children: ReactNode;
+  children: React.ReactNode;
   className?: string;
   hover?: boolean;
-  onClick?: () => void;
 }
 
-export const Card: React.FC<CardProps> = ({ children, className = '', hover = false, onClick }) => {
+export const Card: React.FC<CardProps> = ({ children, className = '', hover = true }) => {
   return (
-    <div
-      onClick={onClick}
-      className={`bg-white rounded-lg border border-primary/20 p-4 shadow-sm transition-all duration-200 ${
-        hover ? 'hover:border-accent hover:shadow-md cursor-pointer' : ''
-      } ${className}`}
-    >
+    <div className={`
+      bg-white rounded-[2rem] p-6 
+      border border-purple-50
+      shadow-[0_8px_30px_rgb(243,240,255,0.5)] 
+      transition-all duration-300
+      ${hover ? 'hover:shadow-[0_15px_45px_rgb(235,230,255,0.8)] hover:-translate-y-1.5' : ''}
+      ${className}
+    `}>
       {children}
-    </div>
-  );
-};
-
-interface CardHeaderProps {
-  title: string;
-  subtitle?: string;
-  action?: ReactNode;
-}
-
-export const CardHeader: React.FC<CardHeaderProps> = ({ title, subtitle, action }) => {
-  return (
-    <div className="flex items-center justify-between mb-4 pb-2 border-b border-gray-100">
-      <div>
-        <h3 className="text-lg font-semibold text-primary">{title}</h3>
-        {subtitle && <p className="text-sm text-gray-500 mt-1">{subtitle}</p>}
-      </div>
-      {action && <div>{action}</div>}
     </div>
   );
 };
