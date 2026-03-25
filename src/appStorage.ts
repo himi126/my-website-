@@ -51,7 +51,7 @@ export const appStorage = {
 
 // 生成唯一ID
 export const generateId = (): string => {
-  return Date.now().toString(36) + Math.random().toString(36).substr(2);
+  return Date.now().toString(36) + Math.random().toString(36).substr(2, 9);
 };
 
 // 格式化日期
@@ -70,3 +70,12 @@ export const formatDateTime = (date: Date | string): string => {
     minute: '2-digit'
   });
 };
+
+/**
+ * 🚀 终极补丁：解决 ReferenceError: storage is not defined
+ * 即使你在其他文件里忘了把 storage 改成 appStorage，
+ * 只要运行了这段代码，浏览器就会自动把 storage 指向 appStorage。
+ */
+if (typeof window !== 'undefined') {
+  (window as any).storage = appStorage;
+}
