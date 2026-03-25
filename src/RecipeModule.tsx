@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { ChefHat, Heart, Trash2, Edit, Plus, Filter, Calendar } from 'lucide-react';
-import { Card, CardHeader } from '../UI/Card';
-import { Button } from '../UI/Button';
-import { Modal } from '../UI/Modal';
-import { Input, Textarea, Select } from '../UI/Input';
-import { storage, generateId, formatDate } from '../../lib/storage';
-import { getCurrentSolarTerm, getAllSolarTerms } from '../../lib/solarTerms';
-import type { Recipe, HealthProfile } from '../../types';
+import { Card, CardHeader } from './Card';
+import { Button } from './Button';
+import { Modal } from './Modal';
+import { Input, Textarea, Select } from './Input';
+import { storage, generateId, formatDate } from './appStorage';
+import { getCurrentSolarTerm, getAllSolarTerms } from './solarTerms';
+import type { Recipe, HealthProfile } from './index.ts';
 
 const defaultProfile: HealthProfile = {
   height: 170,
