@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 // 注意：这里我们强制指向当前目录下的 storage 文件
-import { storage } from './storage';
+import { storage } from './appStorage';
 
 export const AppContext = createContext<any>(null);
 
