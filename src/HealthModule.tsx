@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { Activity, Plus, TrendingUp, TrendingDown, AlertTriangle, Droplets, Moon, Footprints } from 'lucide-react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 import { Card, CardHeader } from '../UI/Card';
-import { Button } from '../UI/Button';
-import { Modal } from '../UI/Modal';
-import { Input } from '../UI/Input';
-import { storage, generateId, formatDate } from '../../lib/storage';
-import type { HealthRecord } from '../../types';
+import { Button } from './Button';
+import { Modal } from './Modal';
+import { Input } from './Input';
+import { storage, generateId, formatDate } from './appStorage';
+import type { HealthRecord } from './index.ts';
 
 export const HealthModule: React.FC = () => {
   const [records, setRecords] = useState<HealthRecord[]>(() => storage.get('health-records', []));
