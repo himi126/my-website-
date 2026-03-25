@@ -3,7 +3,7 @@ import { Newspaper, Star, Check, RefreshCw, Filter, ExternalLink, Bookmark, Sear
 import { Card, CardHeader } from './Card';
 import { Button } from './Button';
 import { Input } from './Input';
-import { storage, generateId } from './appStorage';
+import { appStorage, generateId } from './appStorage';
 import type { NewsItem } from './index.ts';
 
 // 模拟新闻数据
@@ -26,7 +26,7 @@ const categoryLabels = {
 
 export const NewsModule: React.FC = () => {
   const [news, setNews] = useState<NewsItem[]>(() => {
-    const stored = storage.get<NewsItem[]>('news', []);
+    const stored = appStorage.get<NewsItem[]>('news', []);
     if (stored.length === 0) {
       return mockNewsData.map(item => ({
         ...item,
@@ -44,7 +44,7 @@ export const NewsModule: React.FC = () => {
   const [isRefreshing, setIsRefreshing] = useState(false);
 
   useEffect(() => {
-    storage.set('news', news);
+    appStorage.set('news', news);
   }, [news]);
 
   const handleRefresh = () => {
