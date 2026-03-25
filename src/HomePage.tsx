@@ -56,13 +56,17 @@ export const HomePage: React.FC = () => {
           <h1 className="text-4xl md:text-5xl font-extrabold text-gray-800 tracking-tight">
             欢迎来到 <span className="text-purple-400">himi 的小屋</span>
           </h1>
-          
-          {/* 这里是新增的暖心寄语 */}
+
+          {/* 暖心寄语区域 */}
           <div className="pt-2">
-            <p className="inline-block relative text-lg text-gray-500 font-medium">
-              <span className="relative z-10">每天都要好好吃饭，对自己笑一笑哦 🌸</span>
-              {/* 这是一个很有设计感的文字底衬（浅紫色涂鸦感） */}
-              <span className="absolute bottom-1 left-0 w-full h-2 bg-purple-100/60 -z-0 rounded-full"></span>
+            <p className="inline-block relative">
+              {/* 应用 font-baby 类，并稍微加大字号 */}
+              <span className="font-baby text-2xl text-purple-500 relative z-10">
+                每天都要好好吃饭，对自己笑一笑哦 🌸
+              </span>
+              
+              {/* 文字下方的可爱涂鸦底衬 */}
+              <span className="absolute bottom-1 left-0 w-full h-3 bg-purple-100/60 -z-0 rounded-full"></span>
             </p>
           </div>
         </div>
