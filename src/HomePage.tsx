@@ -44,8 +44,6 @@ export const HomePage: React.FC = () => {
   return (
     <div className="p-6 space-y-10">
       {/* --- 重点：欢迎语区域 --- */}
-   // 在 HomePage.tsx 的 return 块中替换 header 部分：
-
       {/* --- 顶部欢迎与每日寄语 --- */}
       <header className="text-center py-12 space-y-6 animate-in fade-in slide-in-from-top-4 duration-1000">
         <div className="inline-block px-4 py-1.5 bg-purple-100/50 rounded-full">
