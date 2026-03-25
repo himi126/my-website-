@@ -9,7 +9,7 @@ import { appStorage, generateId, formatDate } from './appStorage';
 import type { HealthRecord } from './index.ts';
 
 export const HealthModule: React.FC = () => {
-  const [records, setRecords] = useState<HealthRecord[]>(() => storage.get('health-records', []));
+  const [records, setRecords] = useState<HealthRecord[]>(() => appStorage.get('health-records', []));
   const [showModal, setShowModal] = useState(false);
   const [viewRange, setViewRange] = useState<'week' | 'month'>('week');
 
