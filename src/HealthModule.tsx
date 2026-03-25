@@ -9,7 +9,7 @@ import { appStorage, generateId, formatDate } from './appStorage';
 import type { HealthRecord } from './index.ts';
 
 export const HealthModule: React.FC = () => {
-  // 1. 初始化状态：增加 Array.isArray 检查，确保 records 永远是数组
+  // 初始化状态：确保 records 永远是数组，防止出现 "reading find" 错误
   const [records, setRecords] = useState<HealthRecord[]>(() => {
     const saved = appStorage.get('health-records', []);
     return Array.isArray(saved) ? saved : [];
@@ -29,7 +29,7 @@ export const HealthModule: React.FC = () => {
     exerciseMinutes: '',
   });
 
-  // 自动保存
+  // 自动保存到本地存储
   useEffect(() => {
     appStorage.set('health-records', records || []);
   }, [records]);
@@ -49,7 +49,6 @@ export const HealthModule: React.FC = () => {
       exerciseMinutes: form.exerciseMinutes ? Number(form.exerciseMinutes) : undefined,
     };
 
-    // 使用防御性编程，防止 records 为空
     const currentRecords = Array.isArray(records) ? records : [];
     const existingIndex = currentRecords.findIndex(r => r && r.date === form.date);
     
@@ -69,13 +68,19 @@ export const HealthModule: React.FC = () => {
     });
   };
 
-  // 获取时间范围内的数据（增加空数组保护）
+  // 获取过滤后的数据
   const getFilteredData = () => {
     const safeRecords = Array.isArray(records) ? records : [];
     const now = new Date();
     const cutoff = new Date();
-  if (viewRange === 'week') {
-  cutoff.setDate(now.getDate() - 7);
-} else {
-  cutoff.setMonth(now.getMonth() - 1);
-}
+    
+    // 修正了之前报错的字符串未闭合问题
+    if (viewRange === 'week') {
+      cutoff.setDate(now.getDate() - 7);
+    } else {
+      cutoff.setMonth(now.getMonth() - 1);
+    }
+    
+    return safeRecords
+      .filter(r => r && r.date && new Date(r.date) >= cutoff)
+      .sort((a, b) => (a.date || '').localeCompare(b
