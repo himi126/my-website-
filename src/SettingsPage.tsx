@@ -3,7 +3,7 @@ import { Settings, Download, Upload, Moon, Sun, GripVertical, Eye, EyeOff, Trash
 import { Card, CardHeader } from './Card';
 import { Button } from './Button';
 import { useApp } from './AppContext';
-import { storage } from './appStorage';
+import { appStorage } from './appStorage';
 import type { ModuleOrder } from './index.ts';
 
 export const SettingsPage: React.FC = () => {
@@ -12,7 +12,7 @@ export const SettingsPage: React.FC = () => {
 
   // 导出数据
   const handleExport = () => {
-    const data = storage.exportAll();
+    const data = appStorage.exportAll();
     const blob = new Blob([data], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
