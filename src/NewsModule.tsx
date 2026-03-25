@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Newspaper, Star, Check, RefreshCw, Filter, ExternalLink, Bookmark, Search } from 'lucide-react';
 import { Card, CardHeader } from '../UI/Card';
-import { Button } from '../UI/Button';
-import { Input } from '../UI/Input';
-import { storage, generateId } from '../../lib/storage';
-import type { NewsItem } from '../../types';
+import { Button } from './Button';
+import { Input } from './Input';
+import { storage, generateId } from './appStorage';
+import type { NewsItem } from './index.ts';
 
 // 模拟新闻数据
 const mockNewsData: Omit<NewsItem, 'id' | 'isRead' | 'isFavorite'>[] = [
