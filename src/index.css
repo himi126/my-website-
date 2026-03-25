@@ -1,38 +1,30 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap');
+/* 引入 Google Fonts 上的圆体和可爱字体作为备选 */
+@import url('https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&family=Noto+Sans+SC:wght@400;500;700&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  /* 定义清新的浅紫色调 */
-  --primary-soft: #f3f0ff;    /* 极浅紫背景 */
-  --primary-medium: #e5dbff;  /* 浅紫边框 */
-  --primary-main: #9775fa;    /* 主紫色 */
-  --accent-soft: #fff9db;    /* 浅黄点缀 */
+  --primary-soft: #f3f0ff;
+  --primary-main: #9775fa;
 }
 
+/* 全局默认字体：圆黑体风格 */
 body {
-  /* 使用圆角感较强的字体栈 */
   font-family: 'ui-rounded', 'Hiragino Maru Gothic ProN', 'Quicksand', 'Noto Sans SC', sans-serif;
-  background-color: #fcfaff;
+  background: linear-gradient(135deg, #fdfbff 0%, #f3f0ff 100%);
+  background-attachment: fixed;
   color: #495057;
 }
 
-/* 这里的类名用于卡片的设计感效果 */
+/* 专属：娃娃体 / 快乐体样式 */
+.font-baby {
+  /* 优先使用系统的可爱字体，备选 Google 的 ZCOOL KuaiLe */
+  font-family: 'Chalkboard SE', 'Comic Sans MS', 'ZCOOL KuaiLe', cursive;
+}
+
+/* 之前定义的卡片效果保持不变 */
 .glass-card {
-  @apply bg-white/80 backdrop-blur-md border border-white/50 rounded-3xl shadow-sm transition-all duration-300;
-}
-
-.glass-card:hover {
-  @apply shadow-lg -translate-y-1 border-purple-200;
-}
-
-/* 自定义滚动条也要萌萌的 */
-::-webkit-scrollbar {
-  width: 6px;
-}
-::-webkit-scrollbar-thumb {
-  background: var(--primary-medium);
-  border-radius: 10px;
+  @apply bg-white/80 backdrop-blur-md border border-white/50 rounded-[2rem] shadow-sm transition-all duration-300;
 }
