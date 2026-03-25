@@ -8,8 +8,8 @@ import { storage, generateId, formatDate } from './appStorage';
 import type { Contact, Task } from './index.ts';
 
 export const ContactModule: React.FC = () => {
-  const [contacts, setContacts] = useState<Contact[]>(() => storage.get('contacts', []));
-  const [tasks, setTasks] = useState<Task[]>(() => storage.get('tasks', []));
+  const [contacts, setContacts] = useState<Contact[]>(() => appStorage.get('contacts', []));
+  const [tasks, setTasks] = useState<Task[]>(() => appStorage.get('tasks', []));
   const [showModal, setShowModal] = useState(false);
   const [editingContact, setEditingContact] = useState<Contact | null>(null);
   const [selectedContact, setSelectedContact] = useState<Contact | null>(null);
