@@ -3,9 +3,10 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "scripts": {
+ "scripts": {
     "dev": "vite",
-    "build": "node check-files.js && vite build",
+    "install-deps": "pnpm install --no-frozen-lockfile",
+    "build": "pnpm install --no-frozen-lockfile && node check-files.js && vite build",
     "preview": "vite preview"
   },
   "dependencies": {
