@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, Sun, Moon } from 'lucide-react';
-import { useApp } from '../../context/AppContext';
+import { useApp } from './AppContext';
 
 const navItems = [
   { path: '/', label: '首页' },
