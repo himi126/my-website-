@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { ChefHat, Newspaper, Activity, Lightbulb } from 'lucide-react';
-import { RecipeModule } from '../components/Modules/RecipeModule';
-import { NewsModule } from '../components/Modules/NewsModule';
-import { HealthModule } from '../components/Modules/HealthModule';
-import { InspirationModule } from '../components/Modules/InspirationModule';
-import { useApp } from '../context/AppContext';
+import { RecipeModule } from './RecipeModule';
+import { NewsModule } from './NewsModule';
+import { HealthModule } from './HealthModule';
+import { InspirationModule } from './InspirationModule';
+import { useApp } from './AppContext';
 
 type LifeTab = 'recipe' | 'news' | 'health' | 'inspiration';
 
