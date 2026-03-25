@@ -5,7 +5,7 @@ import { Card, CardHeader } from './Card';
 import { Button } from './Button';
 import { Modal } from './Modal';
 import { Input } from './Input';
-import { storage, generateId, formatDate } from './appStorage';
+import { appStorage, generateId, formatDate } from './appStorage';
 import type { HealthRecord } from './index.ts';
 
 export const HealthModule: React.FC = () => {
@@ -25,7 +25,7 @@ export const HealthModule: React.FC = () => {
   });
 
   useEffect(() => {
-    storage.set('health-records', records);
+    appStorage.set('health-records', records);
   }, [records]);
 
   const handleSaveRecord = () => {
