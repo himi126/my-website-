@@ -1,3 +1,4 @@
+// src/solarTerms.ts
 
 export interface SolarTermInfo {
   name: string;
@@ -155,29 +156,36 @@ const termHealthData: Record<string, Omit<SolarTermInfo, 'name'>> = {
 };
 
 /**
- * 24节气计算逻辑（简化算法，适配现代公历）
+ * 24节气计算逻辑（优化版中值算法）
  */
 export function getRealTimeSolarTerm(): SolarTermInfo {
   const now = new Date();
   const m = now.getMonth() + 1;
   const d = now.getDate();
 
-  // 简易节气判断对照表 (日期大约在4-7日/19-23日)
   let name = "";
-  if (m === 1) name = d < 6 ? "冬至" : (d < 20 ? "小寒" : "大寒");
-  else if (m === 2) name = d < 4 ? "大寒" : (d < 19 ? "立春" : "雨水");
-  else if (m === 3) name = d < 5 ? "雨水" : (d < 20 ? "惊蛰" : "春分");
-  else if (m === 4) name = d < 4 ? "春分" : (d < 19 ? "清明" : "谷雨");
-  else if (m === 5) name = d < 5 ? "谷雨" : (d < 21 ? "立夏" : "小满");
-  else if (m === 6) name = d < 5 ? "小满" : (d < 21 ? "芒种" : "夏至");
-  else if (m === 7) name = d < 7 ? "夏至" : (d < 22 ? "小暑" : "大暑");
-  else if (m === 8) name = d < 7 ? "大暑" : (d < 23 ? "立秋" : "处暑");
-  else if (m === 9) name = d < 7 ? "处暑" : (d < 23 ? "白露" : "秋分");
-  else if (m === 10) name = d < 8 ? "秋分" : (d < 23 ? "寒露" : "霜降");
-  else if (m === 11) name = d < 7 ? "霜降" : (d < 22 ? "立冬" : "小雪");
-  else if (m === 12) name = d < 7 ? "小雪" : (d < 21 ? "大雪" : "冬至");
 
-  const data = termHealthData[name] || termHealthData["清明"]; // 默认兜底
+  // 这里的日期中值是根据历年节气平均日期设定的
+  switch (m) {
+    case 1: name = d < 5 ? "冬至" : (d < 20 ? "小寒" : "大寒"); break;
+    case 2: name = d < 4 ? "大寒" : (d < 19 ? "立春" : "雨水"); break;
+    case 3: name = d < 5 ? "雨水" : (d < 20 ? "惊蛰" : "春分"); break;
+    case 4: name = d < 4 ? "春分" : (d < 20 ? "清明" : "谷雨"); break;
+    case 5: name = d < 5 ? "谷雨" : (d < 21 ? "立夏" : "小满"); break;
+    case 6: name = d < 5 ? "小满" : (d < 21 ? "芒种" : "夏至"); break;
+    case 7: name = d < 7 ? "夏至" : (d < 22 ? "小暑" : "大暑"); break;
+    case 8: name = d < 7 ? "大暑" : (d < 23 ? "立秋" : "处暑"); break;
+    case 9: name = d < 7 ? "处暑" : (d < 23 ? "白露" : "秋分"); break;
+    case 10: name = d < 8 ? "秋分" : (d < 23 ? "寒露" : "霜降"); break;
+    case 11: name = d < 7 ? "霜降" : (d < 22 ? "立冬" : "小雪"); break;
+    case 12: name = d < 7 ? "小雪" : (d < 21 ? "大雪" : "冬至"); break;
+    default: name = "清明";
+  }
 
-  return { name, ...data };
+  const data = termHealthData[name];
+
+  return { 
+    name, 
+    ...(data || termHealthData["清明"]) 
+  };
 }
