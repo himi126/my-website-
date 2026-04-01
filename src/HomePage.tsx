@@ -1,75 +1,78 @@
+// src/HomePage.tsx
+
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { ChefHat, Newspaper, CheckSquare, FileText, Activity, Lightbulb, Users, ArrowRight, Calendar, TrendingUp } from 'lucide-react';
 import { Card } from './Card';
-import { useApp } from './AppContext';
-import { appStorage, formatDate } from './appStorage';
-import { getCurrentSolarTerm } from './solarTerms';
-import type { Recipe, NewsItem, Task, HealthRecord, Review } from './index.ts';
+import { getRealTimeSolarTerm } from './solarTerms';
 
 export const HomePage: React.FC = () => {
-  const { settings } = useApp();
-  const currentSolarTerm = getCurrentSolarTerm();
-
-  // 安全加载数据
-  const recipes = appStorage.get<Recipe[]>('recipes', []);
-  const news = appStorage.get<NewsItem[]>('news', []);
-  const tasks = appStorage.get<Task[]>('tasks', []);
-  const healthRecords = appStorage.get<HealthRecord[]>('health-records', []);
-  const reviews = appStorage.get<Review[]>('reviews', []);
-
-  // 简单逻辑处理
-  const pendingTasks = tasks.filter(t => t.status !== 'completed');
-  const todayNews = news.filter(n => !n.isRead).slice(0, 3);
-  const weekReviews = reviews.filter(r => {
-    const reviewDate = new Date(r.date);
-    const weekAgo = new Date();
-    weekAgo.setDate(weekAgo.getDate() - 7);
-    return reviewDate >= weekAgo;
-  });
-
-  const moduleCards = [
-    { id: 'recipe', title: '私人定制食谱', icon: ChefHat, link: '/life', category: 'life', summary: `当前节气：${currentSolarTerm.name}` },
-    { id: 'news', title: '新闻聚合', icon: Newspaper, link: '/life', category: 'life', summary: `${todayNews.length} 条未读新闻` },
-    { id: 'health', title: '健康追踪', icon: Activity, link: '/life', category: 'life', summary: '点击记录今日数据' },
-    { id: 'inspiration', title: '灵感创意库', icon: Lightbulb, link: '/life', category: 'life', summary: '捕捉转瞬即逝的想法' },
-    { id: 'tasks', title: '工作清单', icon: CheckSquare, link: '/work', category: 'work', summary: `${pendingTasks.length} 项待办任务` },
-    { id: 'review', title: '工作复盘', icon: FileText, link: '/work', category: 'work', summary: `本周已完成 ${weekReviews.length} 次` },
-    { id: 'contacts', title: '人脉管理', icon: Users, link: '/work', category: 'work', summary: '管理你的社交网络' },
-  ];
-
-  const lifeModules = moduleCards.filter(m => m.category === 'life');
-  const workModules = moduleCards.filter(m => m.category === 'work');
+  const currentTerm = getRealTimeSolarTerm();
 
   return (
-    <div className="p-6 space-y-10">
-      {/* --- 重点：欢迎语区域 --- */}
-      {/* --- 顶部欢迎与每日寄语 --- */}
-      <header className="text-center py-12 space-y-6 animate-in fade-in slide-in-from-top-4 duration-1000">
-        <div className="inline-block px-4 py-1.5 bg-purple-100/50 rounded-full">
-          <p className="text-purple-400 font-medium tracking-[0.2em] text-xs uppercase">
-            ✨ Welcome to himi's cabin
-          </p>
+    <div className="p-6 space-y-10 animate-in fade-in duration-1000">
+      {/* 1. 顶部欢迎寄语 - 娃娃体 */}
+      <header className="text-center py-12 space-y-4">
+        <h1 className="font-baby text-4xl text-purple-500 mb-2 drop-shadow-sm">
+          每天都要好好吃饭，对自己笑一笑哦 🌸
+        </h1>
+        <div className="inline-flex items-center gap-3 px-6 py-2 bg-purple-50 rounded-full border border-purple-100 shadow-sm">
+          <span className="text-purple-600 font-bold text-lg">当前节气：{currentTerm.name}</span>
+          <span className="text-purple-300">|</span>
+          <p className="text-purple-500/80 font-medium">{currentTerm.desc}</p>
         </div>
-        
-        <div className="space-y-2">
-          <h1 className="text-4xl md:text-5xl font-extrabold text-gray-800 tracking-tight">
-            欢迎来到 <span className="text-purple-400">himi 的小屋</span>
-          </h1>
+      </header>
 
-          {/* 暖心寄语区域 */}
-          <div className="pt-2">
-            <p className="inline-block relative">
-              {/* 应用 font-baby 类，并稍微加大字号 */}
-              <span className="font-baby text-2xl text-purple-500 relative z-10">
-                每天都要好好吃饭，对自己笑一笑哦 🌸
-              </span>
-              
-              {/* 文字下方的可爱涂鸦底衬 */}
-              <span className="absolute bottom-1 left-0 w-full h-3 bg-purple-100/60 -z-0 rounded-full"></span>
-            </p>
+      {/* 2. 节气深度养生区 - 每个模块10道 */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {/* 建议饮食卡片 */}
+        <Card className="bg-gradient-to-br from-green-50/50 to-white border-green-100">
+          <div className="flex items-center gap-2 mb-4">
+            <div className="w-8 h-8 bg-green-400 rounded-lg flex items-center justify-center text-white font-bold">🍵</div>
+            <h2 className="text-xl font-bold text-green-800">建议食材 (10种)</h2>
           </div>
-        </div>
+          <div className="flex flex-wrap gap-2">
+            {currentTerm.foods.map(food => (
+              <span key={food} className="px-3 py-1.5 bg-white border border-green-100 text-green-700 rounded-xl text-sm font-medium shadow-sm hover:scale-105 transition-transform cursor-default">
+                {food}
+              </span>
+            ))}
+          </div>
+        </Card>
+
+        {/* 推荐食谱卡片 */}
+        <Card className="bg-gradient-to-br from-orange-50/50 to-white border-orange-100">
+          <div className="flex items-center gap-2 mb-4">
+            <div className="w-8 h-8 bg-orange-400 rounded-lg flex items-center justify-center text-white font-bold">🍳</div>
+            <h2 className="text-xl font-bold text-orange-800">推荐菜系 (10道)</h2>
+          </div>
+          <div className="grid grid-cols-2 gap-y-3 gap-x-2">
+            {currentTerm.recipes.map((recipe, idx) => (
+              <div key={recipe} className="flex items-center gap-2 text-sm text-gray-600">
+                <span className="text-orange-300 font-bold">{idx + 1}.</span>
+                <span className="truncate">{recipe}</span>
+              </div>
+            ))}
+          </div>
+        </Card>
+
+        {/* 健康生活卡片 */}
+        <Card className="bg-gradient-to-br from-blue-50/50 to-white border-blue-100">
+          <div className="flex items-center gap-2 mb-4">
+            <div className="w-8 h-8 bg-blue-400 rounded-lg flex items-center justify-center text-white font-bold">🧘</div>
+            <h2 className="text-xl font-bold text-blue-800">时令建议</h2>
+          </div>
+          <div className="space-y-4">
+             {currentTerm.tips.map(tip => (
+               <div key={tip} className="flex items-start gap-3 bg-white/60 p-3 rounded-2xl border border-blue-50">
+                 <div className="w-1.5 h-1.5 bg-blue-400 rounded-full mt-1.5 shrink-0" />
+                 <p className="text-sm text-blue-900/70 font-medium">{tip}</p>
+               </div>
+             ))}
+             <p className="text-[10px] text-gray-300 italic text-center pt-2">
+               * 顺应自然，四时皆安
+             </p>
+          </div>
+        </Card>
+      </div>
 
         {!settings?.minimalMode && (
           <p className="text-gray-400 text-sm font-light tracking-widest">
