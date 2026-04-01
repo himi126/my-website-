@@ -1,4 +1,3 @@
-// src/solarTerms.ts
 
 export interface SolarTermInfo {
   name: string;
