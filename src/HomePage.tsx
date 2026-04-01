@@ -1,5 +1,3 @@
-// src/HomePage.tsx
-
 import React from 'react';
 import { Card } from './Card';
 import { getRealTimeSolarTerm } from './solarTerms';
